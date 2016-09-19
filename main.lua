@@ -20,8 +20,11 @@
 --
 -- [ MIT license: http://www.opensource.org/licenses/mit-license.php ]
 --
- 
-local widget = require "widget"
+local widget    =   require "widget"                        --include Corona's "widget" library
+local composer  =   require "composer"                      --include Corona's composer
+
+--composer.gotoScene( "tabletut", "fade", 400  )
+
 
 local SCREEN_WIDTH = display.contentWidth
 local SCREEN_HEIGHT = display.contentHeight
@@ -34,11 +37,12 @@ local function initData(count)
 	
 	for i = 1, count do
 		itemList[i] = {}
-		itemList[i].title = "Row "..i
+		itemList[i].title = "Row "..i.." something random"
 	end
 	
 	for i = 1, count do
 		list:insertRow{
+				isCategory = false,
 				rowHeight =ROW_HEIGHT,
 				rowColor = {  default = { 1, 1, 1 }, over = { 0.95, 0.95, 0.95, 1 }},
 				}		
@@ -53,7 +57,7 @@ local function onRowRender( event )
 	local row = event.row
 	local index = row.index 
 
-	local rowText = display.newText(row, itemList[index].title, 0, 0,  "Times New Roman", 12)
+	local rowText = display.newText(row, itemList[index].title, 0, 0,  system.defaultFont, 24)
 
 	rowText.anchorX = 0.5
 	rowText.anchorY = 0.5
@@ -85,7 +89,7 @@ local function insertTable()
 end
 
 
-function reloadTable(index, count, slideDirection)
+function Table(index, count, slideDirection)
 
 	if (list:getNumRows() < index) then
 		print("Cannot insert at "..index..". Table too small.")
